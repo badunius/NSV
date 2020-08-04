@@ -3,7 +3,7 @@ type TResult = string|boolean
 type TValue = string|number|boolean
 type TValidator = (source: TSource) => TResult
 type TModifyCreator = (argument: string | TValidator, error?: TResult) => TValidator
-type TCompareCreator = (argument: string, value: TValue, error?: TResult) => TValidator
+type TCompareCreator = (argument: string, value: TValue|RegExp, error?: TResult) => TValidator
 type TSelectCreator = (argument: TValidator[], error?: TResult) => TValidator
 
 const is: TModifyCreator = (argument, error = false) => (source) => {
@@ -31,6 +31,17 @@ const lt: TCompareCreator = (argument, value, error = false) => (source) => {
 	return source[argument] < value
 		? true
 		: error
+}
+
+const eq: TCompareCreator = (argument, value, error = false) => (source) => {
+	return source[argument] === value
+		? true
+		: error
+}
+
+// TODO
+const reg: TCompareCreator = (argument, value: RegExp, error = false) => (source) => {
+	return false
 }
 
 const all: TSelectCreator = (argument = [], error = false) => (source) => {
