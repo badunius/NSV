@@ -21,6 +21,11 @@ const is: TModifyCreator = (argument, error = false) => (source) => {
 	}
 }
 
+const not: TModifyCreator = (argument, error = false) => (source) => {
+	// TODO
+	return false
+}
+
 const gt: TCompareCreator = (argument, value, error = false) => (source) => {
 	return source[argument] > value
 		? true
